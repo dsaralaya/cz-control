@@ -1,0 +1,9 @@
+<div class="form-group {{Required?'required':''}}">
+    <label>{{label}}</label>
+    <!-- <ng-datepicker [headless]="false"  [options]="options" [(ngModel)]="value" [ngModelOptions]="{standalone: true}"  (blur)="valueChanged($event.target.value)">
+        </ng-datepicker> -->
+       
+        <input [id]="identifier"  [dropSpecialCharacters]="false" mask="00/00/0000" class="form-control" type="text" [placeholder]="placeholder || ''" [value]="value"
+            (blur)="valueChanged($event.target.value)">
+    <validation *ngIf="invalid" [messages]="failures"></validation>
+</div>

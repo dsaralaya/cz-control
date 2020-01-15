@@ -1,0 +1,9 @@
+<div class="form-group {{Required?'required':''}}">
+    <label>{{label}}</label>
+    <select  class="form-control"  [(value)]="value" (change)="valueChanged($event.target.value)">
+        <ng-container *ngFor="let opt of options">
+            <option value="{{opt.value}}">{{opt.name}}</option>
+        </ng-container>
+    </select>
+    <validation *ngIf="invalid" [messages]="failures"></validation>
+</div>

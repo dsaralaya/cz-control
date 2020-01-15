@@ -1,0 +1,5 @@
+<div class="form-group {{Required?'required':''}}">
+    <label>{{label}}</label>
+    <input [id]="identifier" class="form-control" [type]="type" [placeholder]="placeholder || ''" [value]="value" (blur)="valueChanged($event.target.value)">
+    <validation *ngIf="invalid" [messages]="failures"></validation>
+</div>

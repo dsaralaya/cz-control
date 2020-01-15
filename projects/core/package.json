@@ -1,0 +1,11 @@
+{
+  "name": "cz-control",
+  "version": "0.0.7",
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14",
+    "@ng-select/ng-select": "^3.7.1",
+    "bootstrap": "^4.4.1",
+    "ngx-mask": "^8.1.7"
+  }
+}

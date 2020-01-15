@@ -1,0 +1,6 @@
+<div class="form-check form-group {{Required?'required':''}}">
+    <label  class="form-check-label"> 
+    <input type="checkbox" class="form-check-input" [value]="value" (change)="valueChanged($event.target.checked)" />
+    {{label}}</label>
+<validation *ngIf="invalid" [messages]="failures"></validation>
+</div>

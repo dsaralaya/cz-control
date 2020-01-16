@@ -22,19 +22,26 @@ export class BaseComponent implements ControlValueAccessor, OnDestroy {
         setTimeout(() => {
             this.ngControl = this.injector.get(NgControl);
             if (this.ngControl && this.ngControl.control) {
+                var arry = [];
                 if (this.Required) {
-                    this.ngControl.control.setValidators([Validators.required]);
+                    arry.push(Validators.required);
                 }
                 if (this.min) {
                     this.ngControl.control.setValidators([Validators.min(this.min)]);
+                    arry.push(Validators.min(this.min));
                 }
                 if (this.max) {
+                    arry.push(Validators.max(this.max));
                     this.ngControl.control.setValidators([Validators.max(this.max)]);
                 }
                 if (this.czValidator) {
-                    this.ngControl.control.setValidators([this.czValidator]);
+                    arry.push(this.czValidator);
                 }
-                this.ngControl.control.updateValueAndValidity();
+                if (arry.length > 0) {
+                    this.ngControl.control.setValidators(arry);
+                    this.ngControl.control.updateValueAndValidity();
+                }
+
             }
         });
     }

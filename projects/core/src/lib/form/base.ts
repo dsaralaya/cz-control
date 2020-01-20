@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NgControl, NgForm, Validators } from "@angular/forms";
-import { OnDestroy, Injector, Optional, Component } from "@angular/core";
+import { OnDestroy, Injector, Optional, Component, SimpleChanges, Output, EventEmitter } from "@angular/core";
 import { errorMessages } from './messages';
 import { CoreService } from '../core.service';
 @Component({
@@ -8,6 +8,7 @@ import { CoreService } from '../core.service';
 export class BaseComponent implements ControlValueAccessor, OnDestroy {
     ngControl: NgControl;
     value = '';
+    type: any;
     label: any;
     Required: any;
     czValidator: any;
@@ -15,35 +16,52 @@ export class BaseComponent implements ControlValueAccessor, OnDestroy {
     max: any;
     onChange = (value: string) => { };
     onTouched = () => { };
-
+    arryValidator = [];
+    pattern: any;
+    @Output() blur = new EventEmitter();
     constructor(private injector: Injector, private form: NgForm, private svc: CoreService) { }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.Required && changes.Required.currentValue != changes.Required.previousValue && changes.Required.previousValue != undefined) {
+            this.arryValidator = [];
+            this.ngControl.control.setValidators(null);
+            this.ngControl.control.clearValidators();
+            this.getValidators();
+        }
+    }
 
     ngAfterViewInit(): void {
         setTimeout(() => {
             this.ngControl = this.injector.get(NgControl);
             if (this.ngControl && this.ngControl.control) {
-                var arry = [];
-                if (this.Required) {
-                    arry.push(Validators.required);
-                }
-                if (this.min) {
-                    this.ngControl.control.setValidators([Validators.min(this.min)]);
-                    arry.push(Validators.min(this.min));
-                }
-                if (this.max) {
-                    arry.push(Validators.max(this.max));
-                    this.ngControl.control.setValidators([Validators.max(this.max)]);
-                }
-                if (this.czValidator) {
-                    arry.push(this.czValidator);
-                }
-                if (arry.length > 0) {
-                    this.ngControl.control.setValidators(arry);
-                    this.ngControl.control.updateValueAndValidity();
-                }
-
+                this.getValidators();
             }
         });
+    }
+    getValidators() {
+        if (this.Required) {
+            this.arryValidator.push(Validators.required);
+
+        }
+        if (this.min) {
+            this.arryValidator.push(Validators.min(parseFloat(this.min)));
+        }
+        if (this.max) {
+            this.arryValidator.push(Validators.max(parseFloat(this.max)));
+        }
+        if (this.pattern) {
+            this.arryValidator.push(Validators.pattern(new RegExp(this.pattern)));
+        }
+        if (this.type === 'email') {
+            this.arryValidator.push(Validators.email);
+        }
+        if (this.czValidator) {
+            this.arryValidator.push(this.czValidator);
+        }
+        if (this.arryValidator.length > 0) {
+            this.ngControl.control.setValidators(this.arryValidator);
+            this.ngControl.control.updateValueAndValidity();
+        }
     }
 
     get invalid() {
@@ -55,7 +73,7 @@ export class BaseComponent implements ControlValueAccessor, OnDestroy {
 
     get failures() {
         if (this.ngControl && this.ngControl.control.errors) {
-            return Object.keys(this.ngControl.control.errors).map(k => errorMessages(this.label, k, (this.svc.messages || [])));
+            return Object.keys(this.ngControl.control.errors).map(k => errorMessages(k, (this.svc.messages || []), this));
         }
         return [];
     }
@@ -67,6 +85,7 @@ export class BaseComponent implements ControlValueAccessor, OnDestroy {
     valueChanged(value: string) {
         this.writeValue(value);
         this.touched();
+        this.blur.emit(value);
     }
 
     writeValue(value: string = ''): void {

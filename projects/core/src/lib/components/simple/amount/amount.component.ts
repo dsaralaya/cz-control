@@ -6,29 +6,28 @@ import { CoreService } from '../../../core.service';
 
 let identifier = 0;
 @Component({
-  selector: 'cz-mask-input',
-  templateUrl: './mask.component.html',
+  selector: 'cz-amount',
+  templateUrl: './amount.component.html',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MaskComponent),
+    useExisting: forwardRef(() => AmountComponent),
     multi: true,
   }],
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 
-export class MaskComponent extends BaseComponent {
+export class AmountComponent extends BaseComponent {
   @Input() public label: string;
   @Input() public placeholder: string;
   @Input() public type = 'text';
   @Input() public Required = false;
   @Input() public min;
   @Input() public max;
-  @Input() keepMask = true;
-  @Input() maskPrefix = '';
-  @Input() maskPattern = '';
+  @Input() currency = '';
+
   @Input() czValidator: any;
   @Input() readOnly = false;
-  public identifier = `cz-mask-input-${identifier++}`;
+  public identifier = `cz-amount-${identifier++}`;
 
   constructor(injector: Injector, @Optional() form: NgForm, svc: CoreService) {
     super(injector, form, svc);

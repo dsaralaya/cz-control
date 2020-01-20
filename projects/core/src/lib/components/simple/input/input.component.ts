@@ -24,12 +24,15 @@ export class InputComponent extends BaseComponent {
   @Input() czValidator: any;
   @Input() public min;
   @Input() public max;
+  @Input() readOnly = false;
+  @Input() pattern = '';
 
   public identifier = `cz-input-${identifier++}`;
 
   constructor(injector: Injector, @Optional() form: NgForm, svc: CoreService) {
     super(injector, form, svc);
   }
+
 
 
 }

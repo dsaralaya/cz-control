@@ -23,6 +23,7 @@ export class CheckboxComponent extends BaseComponent {
   @Input() czValidator: any;
   ngControl: NgControl;
   value: string = '';
+  @Input() readOnly = false;
   constructor(injector: Injector, @Optional() form: NgForm, svc: CoreService) {
     super(injector, form, svc);
   }

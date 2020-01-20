@@ -2,8 +2,7 @@
 
     <label>{{label}}</label>
     <ng-select [items]="options" [bindLabel]="bindLabel" [bindValue]="bindValue" [placeholder]="placeholder"
-        [(ngModel)]="value" [ngModelOptions]="{standalone: true}" (change)="valueChanged(($event?$event[bindValue]:''))"
-        (blur)="touched()">
+        [(ngModel)]="value" [ngModelOptions]="{standalone: true}" (change)="valueChanged($event)" (blur)="touched()">
     </ng-select>
     <validation *ngIf="invalid" [messages]="failures"></validation>
 </div>

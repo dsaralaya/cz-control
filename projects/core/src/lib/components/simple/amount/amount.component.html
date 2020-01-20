@@ -1,0 +1,7 @@
+<div class="form-group {{Required?'required':''}}">
+    <label>{{label}}</label>
+    <input [id]="identifier" class="form-control" mask="0*.00" [dropSpecialCharacters]="false" type="text"
+        [placeholder]="placeholder || ''" [(ngModel)]="value" [ngModelOptions]="{standalone: true}"
+        [readonly]="readOnly" (blur)="valueChanged($event.target.value)">
+    <validation *ngIf="invalid" [messages]="failures"></validation>
+</div>

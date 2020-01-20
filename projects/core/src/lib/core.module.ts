@@ -14,14 +14,16 @@ import { DropdownComponent } from './components/simple/dropdown/dropdown.compone
 import { RadioComponent } from './components/simple/radio/radio.component';
 import { ValidationComponent } from './form/validation';
 import { BaseComponent } from './form/base';
+import { MaskComponent } from './components/simple/mask/mask.component';
+import { AmountComponent } from './components/simple/amount/amount.component';
 
 @NgModule({
   declarations: [CoreComponent, ValidationComponent, InputComponent,
-    DateComponent, CheckboxComponent, SelectComponent, DropdownComponent, RadioComponent, BaseComponent],
+    DateComponent, CheckboxComponent, SelectComponent, DropdownComponent, RadioComponent, MaskComponent, BaseComponent, AmountComponent],
   imports: [
     CommonModule, FormsModule, NgSelectModule, NgxMaskModule.forRoot()
   ],
   exports: [CoreComponent, InputComponent, ValidationComponent,
-    DateComponent, CheckboxComponent, SelectComponent, DropdownComponent, RadioComponent, BaseComponent]
+    DateComponent, CheckboxComponent, SelectComponent, DropdownComponent, RadioComponent, MaskComponent, BaseComponent, AmountComponent]
 })
 export class CoreModule { }

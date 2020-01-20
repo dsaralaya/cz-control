@@ -1,8 +1,9 @@
 <div class="form-group ">
-<ng-container *ngFor="let opt of options;let i=index">
-    <div class="form-check form-check-inline">
-        <input name="identifier" (change)="valueChanged(opt.value)" class="form-check-input" type="radio" id="{{identifier}}{{i}}" value="{{opt.value}}">
-        <label class="form-check-label" for="{{identifier}}{{i}}">{{opt.name}}</label>
-    </div>
-</ng-container>
+    <ng-container *ngFor="let opt of options;let i=index">
+        <div class="form-check form-check-inline">
+            <input [name]="identifier" [(ngModel)]="value" (change)="valueChanged(opt.value)" class="form-check-input"
+                type="radio" id="{{identifier}}{{i}}" [value]="opt.value">
+            <label class="form-check-label" for="{{identifier}}{{i}}">{{opt.name}}</label>
+        </div>
+    </ng-container>
 </div>

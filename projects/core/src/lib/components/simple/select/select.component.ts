@@ -22,6 +22,7 @@ export class SelectComponent extends BaseComponent {
   @Input() public name: string;
   @Input() options: any;
   @Input() czValidator: any;
+  @Input() readOnly = false;
   value: string = '';
   constructor(injector: Injector, @Optional() form: NgForm, svc: CoreService) {
     super(injector, form, svc);

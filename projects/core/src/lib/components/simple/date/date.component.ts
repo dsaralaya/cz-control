@@ -19,7 +19,7 @@ export class DateComponent extends BaseComponent {
   @Input() public placeholder: string;
   @Input() public Required = false;
   @Input() czValidator: any;
-
+  @Input() readOnly = false;
   public identifier = `cz-date-${identifier++}`;
   constructor(injector: Injector, @Optional() form: NgForm, svc: CoreService) {
     super(injector, form, svc);

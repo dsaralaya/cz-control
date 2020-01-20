@@ -20,6 +20,7 @@ export class RadioComponent extends BaseComponent {
   @Input() public Required = false;
   @Input() options: any;
   @Input() czValidator: any;
+  @Input() readOnly = false;
   public identifier = `cz-radio-${identifier++}`;
 
   constructor(injector: Injector, @Optional() form: NgForm, svc: CoreService) {
